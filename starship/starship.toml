@@ -2,7 +2,6 @@ format = """
 $directory\
 $git_branch\
 $git_status\
-$nodejs\
 $python\
 $cmd_duration\
 $line_break\
@@ -23,8 +22,7 @@ min_time = 3_000
 format = "[$duration]($style) "
 
 [nodejs]
-format = "[$symbol($version)]($style) "
-detect_files = ["package.json"]
+disabled = true
 
 [character]
 success_symbol = "[❯](green)"

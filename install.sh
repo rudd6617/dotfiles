@@ -18,6 +18,7 @@ LINKS=(
   "starship/starship.toml|$HOME/.config/starship.toml"
   "ghostty/config.ghostty|$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
   "cmux/cmux.json|$HOME/.config/cmux/cmux.json"
+  "claude/keybindings.json|$HOME/.claude/keybindings.json"
 )
 
 link_all() {

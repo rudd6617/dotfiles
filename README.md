@@ -22,4 +22,5 @@ cd ~/Documents/dotfiles && ./install.sh
 - `~/.config/gh`：含 token，用 `gh auth login`
 - `~/.config/zed/settings.json`：含 SSH 主機資訊，repo 是 public
 - `~/.claude/settings.json`：含專案相關設定
+- `~/.codex/config.toml`：含專案路徑與信任設定，repo 是 public
 - App Store、非 brew 安裝的 App（見 Brewfile 底部註解）

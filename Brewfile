@@ -21,7 +21,7 @@ brew "tldr"
 brew "zellij"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# Shell extension to navigate your filesystem faster
+# Additional completion definitions for zsh
 brew "zsh-completions"
 cask "font-meslo-lg-nerd-font"
 cask "font-symbols-only-nerd-font"

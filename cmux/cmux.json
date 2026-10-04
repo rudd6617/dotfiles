@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+
+  "terminal": {
+    "agentHibernation": {
+      "enabled": true,
+      "idleSeconds": 1800,
+      "maxLiveTerminals": 12
+    },
+    "copyOnSelect": true
+  },
+
+  "sidebar": {
+    "pathLastSegmentOnly": true
+  },
+
+  "app": {
+    "sendAnonymousTelemetry": false
+  }
+}

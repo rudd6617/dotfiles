@@ -23,6 +23,8 @@ cask "font-meslo-lg-nerd-font"
 cask "font-symbols-only-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Ghostty-based terminal with vertical tabs and notifications for AI coding agents
+cask "cmux"
 
 # --- GUI apps（目前是手動安裝的，移機時想用 brew 裝就把註解拿掉）---
 # cask "brave-browser"

@@ -17,6 +17,7 @@ LINKS=(
   "mise/config.toml|$HOME/.config/mise/config.toml"
   "starship/starship.toml|$HOME/.config/starship.toml"
   "ghostty/config.ghostty|$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+  "cmux/cmux.json|$HOME/.config/cmux/cmux.json"
 )
 
 link_all() {

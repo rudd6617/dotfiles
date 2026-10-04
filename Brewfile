@@ -19,8 +19,6 @@ brew "ripgrep"
 brew "starship"
 # Simplified and community-driven man pages
 brew "tldr"
-# Pluggable terminal workspace, with terminal multiplexer as the base feature
-brew "zellij"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 # Additional completion definitions for zsh

@@ -1,3 +1,5 @@
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
@@ -17,6 +19,8 @@ brew "starship"
 brew "tldr"
 # Pluggable terminal workspace, with terminal multiplexer as the base feature
 brew "zellij"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
 # Shell extension to navigate your filesystem faster
 brew "zsh-completions"
 cask "font-meslo-lg-nerd-font"

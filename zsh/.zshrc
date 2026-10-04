@@ -33,3 +33,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 if [[ -z ${path[(r)$HOME/.local/bin]} ]]; then
   path=("$HOME/.local/bin" $path)
 fi
+
+# zoxide & fzf
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)

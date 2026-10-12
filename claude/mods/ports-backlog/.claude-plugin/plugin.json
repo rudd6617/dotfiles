@@ -1,0 +1,1 @@
+{ "name": "ports-backlog", "version": "0.1.0", "description": "Right pane: listening TCP ports and the open-todo backlog summary", "types": "./types/index.d.ts" }

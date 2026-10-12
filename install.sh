@@ -19,6 +19,7 @@ LINKS=(
   "ghostty/config.ghostty|$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
   "cmux/cmux.json|$HOME/.config/cmux/cmux.json"
   "claude/keybindings.json|$HOME/.claude/keybindings.json"
+  "claude/statusline.sh|$HOME/.claude/statusline.sh"
 )
 
 link_all() {
@@ -60,6 +61,11 @@ install_packages() {
   command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
   command -v claude >/dev/null 2>&1 || curl -fsSL https://claude.ai/install.sh | bash
   command -v bun >/dev/null 2>&1 || curl -fsSL https://bun.sh/install | bash
+
+  # mods 以本機資料夾 marketplace 安裝：直接讀 repo 內的檔案，改完 /reload-plugins 生效
+  info "Claude Code mods"
+  claude plugin marketplace add "$DOTFILES/claude/mods"
+  claude plugin install ports-backlog@dotfiles
 
   info "mise install"
   mise install

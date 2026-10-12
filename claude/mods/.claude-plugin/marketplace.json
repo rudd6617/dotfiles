@@ -1,0 +1,7 @@
+{
+  "name": "dotfiles",
+  "owner": { "name": "Rudolf Chen" },
+  "plugins": [
+    { "name": "ports-backlog", "source": "./ports-backlog" }
+  ]
+}

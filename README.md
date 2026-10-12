@@ -16,6 +16,7 @@ cd ~/Documents/dotfiles && ./install.sh
 - 設定都是 symlink，直接改就好，改完在這裡 commit
 - 新增 brew 套件後：`brew bundle dump --file=Brewfile --no-vscode --force`（記得把手動調整的部分留下來）
 - 只重建 symlink：`./install.sh link`
+- Claude Code mods 在 `claude/mods/`（本機資料夾 marketplace `dotfiles`），直接改，`/reload-plugins` 生效；新增 mod 要在 `claude/mods/.claude-plugin/marketplace.json` 登記，並在 `install.sh` 加一行 `claude plugin install <mod>@dotfiles`
 
 ## 未納入（需手動處理）
 

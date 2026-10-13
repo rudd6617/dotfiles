@@ -12,7 +12,7 @@ autoload -Uz compinit && compinit
 
 # Aliases
 alias ll="ls -alF"
-alias cc="claude --model 'claude-opus-4-6[1m]'"
+alias cc="claude"
 
 # Starship prompt
 eval "$(starship init zsh)"
@@ -37,3 +37,7 @@ fi
 # zoxide & fzf
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

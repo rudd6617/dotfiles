@@ -83,6 +83,8 @@ install_homebrew() {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  # share 若群組可寫，compinit 會一直跳 insecure directories 提示
+  chmod go-w "$(brew --prefix)/share"
 }
 
 # 列出 App 已存在、但不是 brew 裝的 cask（例如手動下載的 cmux）
@@ -105,6 +107,20 @@ for c in json.load(sys.stdin)["casks"]:
 '
 }
 
+# brew 搬進 ~/Library/Fonts 的字型 macOS 不一定會自動註冊（Ghostty 會找不到），手動向 CoreText 註冊
+register_fonts() {
+  info "註冊 Nerd Fonts"
+  swift -suppress-warnings - <<'SWIFT' || true
+import CoreText
+import Foundation
+let dir = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Fonts")
+let urls = ((try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)) ?? [])
+  .filter { $0.lastPathComponent.contains("Nerd") }
+// 已註冊過的會回報錯誤，忽略即可
+_ = CTFontManagerRegisterFontsForURLs(urls as CFArray, .user, nil)
+SWIFT
+}
+
 install_packages() {
   # 已有 App 的 cask 會讓 brew bundle 失敗：問要不要讓 brew 接管，不要就從 Brewfile 濾掉
   local brewfile="$DOTFILES/Brewfile" skip="" cask
@@ -123,6 +139,7 @@ install_packages() {
 
   info "brew bundle"
   brew bundle --file="$brewfile"
+  register_fonts
 
   # .zshrc 會 source ~/.local/bin/env，由 uv 的安裝程式產生
   command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh

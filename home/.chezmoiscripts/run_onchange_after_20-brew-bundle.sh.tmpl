@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# ~/.Brewfile 有變動才會重跑；Brewfile hash: {{ include "dot_Brewfile" | sha256sum }}
+set -euo pipefail
+eval "$(/opt/homebrew/bin/brew shellenv)"
+info() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
+
+# 問 y/N，預設 N；沒有 tty 一律當 N
+ask() {
+  local reply
+  [[ -t 0 ]] || return 1
+  read -r -p "$1 [y/N] " reply
+  [[ $reply == [yY]* ]]
+}
+
+# 列出 App 已存在、但不是 brew 裝的 cask（例如手動下載的 cmux）
+existing_app_casks() {
+  local casks
+  casks=$(sed -nE 's/^cask "([^"]+)".*/\1/p' "$HOME/.Brewfile")
+  [[ -n "$casks" ]] || return 0
+  # shellcheck disable=SC2086
+  brew info --cask --json=v2 $casks | /usr/bin/python3 -c '
+import json, os, sys
+for c in json.load(sys.stdin)["casks"]:
+    if c.get("installed"):
+        continue
+    for a in c["artifacts"]:
+        if "app" in a:
+            target = a.get("target") or os.path.join("/Applications", a["app"][0])
+            if os.path.exists(target):
+                print(c["token"])
+                break
+'
+}
+
+# 已有 App 的 cask 會讓 brew bundle 失敗：問要不要讓 brew 接管，不要就從 Brewfile 濾掉
+brewfile="$HOME/.Brewfile" skip=""
+for cask in $(existing_app_casks); do
+  if ask "$cask 已手動安裝，要改由 brew 管理嗎？（--adopt，App 會被 brew 的版本覆蓋）"; then
+    brew install --cask --adopt "$cask"
+  else
+    skip="${skip:+$skip|}$cask"
+  fi
+done
+if [[ -n "$skip" ]]; then
+  info "跳過 cask：${skip//|/ }"
+  brewfile="$(mktemp)"
+  grep -vE "^cask \"($skip)\"" "$HOME/.Brewfile" >"$brewfile"
+fi
+
+info "brew bundle"
+brew bundle --file="$brewfile"
+
+# brew 搬進 ~/Library/Fonts 的字型 macOS 不一定會自動註冊（Ghostty 會找不到），手動向 CoreText 註冊
+info "註冊 Nerd Fonts"
+swift -suppress-warnings - <<'SWIFT' || true
+import CoreText
+import Foundation
+let dir = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Fonts")
+let urls = ((try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)) ?? [])
+  .filter { $0.lastPathComponent.contains("Nerd") }
+// 已註冊過的會回報錯誤，忽略即可
+_ = CTFontManagerRegisterFontsForURLs(urls as CFArray, .user, nil)
+SWIFT

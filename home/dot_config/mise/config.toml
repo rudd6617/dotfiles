@@ -1,0 +1,18 @@
+[tools]
+node = "24.21.0"
+python = "3.14.7"
+
+# CLI 工具（原本在 Brewfile）
+bun = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+jq = "latest"
+pnpm = "latest"
+ripgrep = "latest"
+starship = "latest"
+uv = "latest"
+zoxide = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"]

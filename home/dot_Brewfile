@@ -1,12 +1,17 @@
 # CLI 工具大多改由 mise 管理（~/.config/mise/config.toml），這裡只放 mise 裝不了或系統層的東西
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Cloudflare Tunnel client
+brew "cloudflared"
 # Distributed revision control system
 brew "git"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
+# Port scanning utility for large networks
+brew "nmap"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
+brew "python@3.15"
 # 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
 # Simplified and community-driven man pages
